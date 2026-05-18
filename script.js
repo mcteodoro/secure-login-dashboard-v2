@@ -30,15 +30,29 @@ function fazerLogin() {
   botao.disabled = true;
   botao.textContent = "Bloqueado";
 
-  setTimeout(() => {
+  
+  let tempoRestante = 30;
+
+const intervalo = setInterval(() => {
+  mensagem.textContent =
+    "Muitas tentativas. Tente novamente em " +
+    tempoRestante + "s";
+
+  tempoRestante--;
+
+  if (tempoRestante < 0) {
+    clearInterval(intervalo);
+
     tentativas = 0;
+
     botao.disabled = false;
     botao.textContent = "Entrar";
+
     mensagem.textContent = "Você pode tentar novamente.";
     mensagem.style.color = "#22c55e";
-  }, 30000);
+  }
 
-  return;
+}, 1000);
 }
 
   mensagem.textContent =
