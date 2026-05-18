@@ -1,3 +1,4 @@
+let tentativas = 0;
 function fazerLogin() {
   const email = document.getElementById("email").value;
   const senha = document.getElementById("senha").value;
@@ -18,10 +19,35 @@ function fazerLogin() {
   }
 
   if (email !== usuarioSalvo.email || senha !== usuarioSalvo.senha) {
-    mensagem.textContent = "E-mail ou senha incorretos.";
-mensagem.style.color = "#ff4d4d";
-    return;
-  }
+
+  tentativas++;
+
+  if (tentativas >= 5) {
+  mensagem.textContent = "Muitas tentativas. Login bloqueado por 30 segundos.";
+  mensagem.style.color = "#ff4d4d";
+
+  const botao = document.querySelector("button");
+  botao.disabled = true;
+  botao.textContent = "Bloqueado";
+
+  setTimeout(() => {
+    tentativas = 0;
+    botao.disabled = false;
+    botao.textContent = "Entrar";
+    mensagem.textContent = "Você pode tentar novamente.";
+    mensagem.style.color = "#22c55e";
+  }, 30000);
+
+  return;
+}
+
+  mensagem.textContent =
+    "E-mail ou senha incorretos. Tentativas: " + tentativas;
+
+  mensagem.style.color = "#ff4d4d";
+
+  return;
+}
 
   localStorage.setItem("logado", "true");
   window.location.href = "dashboard.html";
