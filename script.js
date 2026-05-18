@@ -124,6 +124,11 @@ function senhaForte(senha) {
 }
 
 function carregarUsuario() {
+  const logado = localStorage.getItem("logado");
+
+if (logado !== "true") {
+  window.location.href = "index.html";
+}
   const listaHistorico = document.getElementById("historicoAcessos");
 const historico = JSON.parse(localStorage.getItem("historicoAcessos")) || [];
 
@@ -171,5 +176,40 @@ function mostrarSenha(id, icone) {
     icone.classList.remove("fa-eye-slash");
     icone.classList.add("fa-eye");
   }
+}function carregarAdmin() {
+  const logado = localStorage.getItem("logado");
+
+if (logado !== "true") {
+  window.location.href = "index.html";
 }
+  const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
+  const ultimoLogin = localStorage.getItem("ultimoLogin");
+  const historico = JSON.parse(localStorage.getItem("historicoAcessos")) || [];
+
+  const nome = document.getElementById("adminNome");
+  const email = document.getElementById("adminEmail");
+  const login = document.getElementById("adminUltimoLogin");
+  const lista = document.getElementById("adminHistorico");
+
+  if (usuarioSalvo && nome && email) {
+    nome.textContent = "Nome: " + usuarioSalvo.nome;
+    email.textContent = "E-mail: " + usuarioSalvo.email;
+  }
+
+  if (ultimoLogin && login) {
+    login.textContent = "Último acesso: " + ultimoLogin;
+  }
+
+  if (lista) {
+    lista.innerHTML = "";
+
+    historico.forEach(function(acesso) {
+      const item = document.createElement("li");
+      item.textContent = acesso;
+      lista.appendChild(item);
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", carregarAdmin);
 document.addEventListener("DOMContentLoaded", carregarUsuario);
