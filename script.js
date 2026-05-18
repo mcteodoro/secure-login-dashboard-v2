@@ -159,5 +159,17 @@ function logout() {
   localStorage.removeItem("logado");
   window.location.href = "index.html";
 }
+function mostrarSenha(id, icone) {
+  const campo = document.getElementById(id);
 
+  if (campo.type === "password") {
+    campo.type = "text";
+    icone.classList.remove("fa-eye");
+    icone.classList.add("fa-eye-slash");
+  } else {
+    campo.type = "password";
+    icone.classList.remove("fa-eye-slash");
+    icone.classList.add("fa-eye");
+  }
+}
 document.addEventListener("DOMContentLoaded", carregarUsuario);

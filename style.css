@@ -80,3 +80,47 @@ button:hover {
   font-size: 14px;
   font-weight: 500;
 }
+.senha-box {
+  position: relative;
+  width: 100%;
+}
+
+.senha-box input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.senha-box i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: white;
+  opacity: 0.8;
+}
+@media (max-width: 600px) {
+
+  .container {
+    width: 90%;
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  input {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  #historicoBox {
+    font-size: 11px;
+  }
+}
