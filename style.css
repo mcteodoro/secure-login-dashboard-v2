@@ -1,6 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 body {
-  font-family: Arial, sans-serif;
-  background: #111;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
   color: white;
   display: flex;
   justify-content: center;
@@ -10,31 +11,42 @@ body {
 }
 
 .container {
-  background: #1c1c1c;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
   padding: 30px;
-  border-radius: 12px;
-  width: 300px;
+  border-radius: 16px;
+  width: 320px;
   text-align: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
 }
 
 input {
   width: 100%;
   padding: 12px;
-  margin: 8px 0;
+  margin: 10px 0;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  outline: none;
+  background: rgba(255,255,255,0.12);
+  color: white;
 }
 
 button {
   width: 100%;
   padding: 12px;
-  background: white;
-  color: black;
+  background: #38bdf8;
+  color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
 }
 
+button:hover {
+  background: #0ea5e9;
+  transform: scale(1.03);
+}
 #mensagem {
   margin-top: 15px;
 }
@@ -42,4 +54,29 @@ button:hover {
   background: #dcdcdc;
   transform: scale(1.02);
   transition: 0.3s;
+}
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 350px;
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  input,
+  button {
+    font-size: 14px;
+  }
+}
+#mensagem {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 500;
 }

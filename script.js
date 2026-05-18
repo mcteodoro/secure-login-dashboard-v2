@@ -5,7 +5,7 @@ function fazerLogin() {
 
   if (email === "" || senha === "") {
     mensagem.textContent = "Preencha todos os campos.";
-    mensagem.style.color = "orange";
+   mensagem.style.color = "#ff4d4d";
     return;
   }
 
@@ -13,13 +13,13 @@ function fazerLogin() {
 
   if (!usuarioSalvo) {
     mensagem.textContent = "Nenhum usuário cadastrado.";
-    mensagem.style.color = "red";
+    mensagem.style.color = "#ff4d4d";
     return;
   }
 
   if (email !== usuarioSalvo.email || senha !== usuarioSalvo.senha) {
     mensagem.textContent = "E-mail ou senha incorretos.";
-    mensagem.style.color = "red";
+mensagem.style.color = "#ff4d4d";
     return;
   }
 
@@ -36,19 +36,19 @@ function cadastrar() {
 
   if (!nome || !email || !senha || !confirmar) {
     mensagem.textContent = "Preencha todos os campos.";
-    mensagem.style.color = "orange";
+    mensagem.style.color = "#ff4d4d";
     return;
   }
 
   if (!senhaForte(senha)) {
     mensagem.textContent = "A senha precisa ter 8 caracteres, letra maiúscula, número e símbolo.";
-    mensagem.style.color = "red";
+     mensagem.style.color = "#ff4d4d";
     return;
   }
 
   if (senha !== confirmar) {
     mensagem.textContent = "As senhas não coincidem.";
-    mensagem.style.color = "red";
+     mensagem.style.color = "#ff4d4d";
     return;
   }
 
@@ -61,7 +61,7 @@ function cadastrar() {
   localStorage.setItem("usuario", JSON.stringify(usuario));
 
   mensagem.textContent = "Cadastro realizado com sucesso!";
-  mensagem.style.color = "lightgreen";
+mensagem.style.color = "#22c55e";
 }
 
 function senhaForte(senha) {
