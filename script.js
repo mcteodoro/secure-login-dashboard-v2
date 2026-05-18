@@ -59,12 +59,19 @@ const intervalo = setInterval(() => {
     "E-mail ou senha incorretos. Tentativas: " + tentativas;
 
   mensagem.style.color = "#ff4d4d";
+ localStorage.setItem("logado", "true");
+  const agora = new Date();
 
+localStorage.setItem(
+  "ultimoLogin",
+  agora.toLocaleString("pt-BR")
+);
+window.location.href = "dashboard.html";
   return;
 }
 
-  localStorage.setItem("logado", "true");
-  window.location.href = "dashboard.html";
+ 
+  
 }
 
 function cadastrar() {
@@ -115,12 +122,21 @@ function senhaForte(senha) {
 function carregarUsuario() {
   const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
   const usuario = document.getElementById("usuario");
+  const ultimoLogin = localStorage.getItem("ultimoLogin");
+  const textoUltimoLogin = document.getElementById("ultimoLogin");
 
   if (usuarioSalvo && usuario) {
     usuario.textContent = "Bem-vindo, " + usuarioSalvo.nome;
     usuario.style.color = "white";
   }
+
+  if (ultimoLogin && textoUltimoLogin) {
+    textoUltimoLogin.textContent = "Último acesso: " + ultimoLogin;
+    textoUltimoLogin.style.color = "white";
+    textoUltimoLogin.style.fontSize = "13px";
+  }
 }
+
 
 function logout() {
   localStorage.removeItem("logado");
