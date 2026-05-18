@@ -61,11 +61,15 @@ const intervalo = setInterval(() => {
   mensagem.style.color = "#ff4d4d";
  localStorage.setItem("logado", "true");
   const agora = new Date();
+const dataHora = agora.toLocaleString("pt-BR");
 
-localStorage.setItem(
-  "ultimoLogin",
-  agora.toLocaleString("pt-BR")
-);
+localStorage.setItem("ultimoLogin", dataHora);
+
+let historico = JSON.parse(localStorage.getItem("historicoAcessos")) || [];
+historico.push(dataHora);
+
+localStorage.setItem("historicoAcessos", JSON.stringify(historico));
+
 window.location.href = "dashboard.html";
   return;
 }
@@ -120,6 +124,19 @@ function senhaForte(senha) {
 }
 
 function carregarUsuario() {
+  const listaHistorico = document.getElementById("historicoAcessos");
+const historico = JSON.parse(localStorage.getItem("historicoAcessos")) || [];
+
+if (listaHistorico) {
+  listaHistorico.innerHTML = "";
+
+  historico.forEach(function(acesso) {
+    const item = document.createElement("li");
+    item.textContent = acesso;
+    listaHistorico.appendChild(item);
+  });
+}
+}
   const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
   const usuario = document.getElementById("usuario");
   const ultimoLogin = localStorage.getItem("ultimoLogin");
@@ -135,7 +152,7 @@ function carregarUsuario() {
     textoUltimoLogin.style.color = "white";
     textoUltimoLogin.style.fontSize = "13px";
   }
-}
+
 
 
 function logout() {
