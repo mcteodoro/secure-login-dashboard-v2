@@ -1,215 +1,69 @@
-let tentativas = 0;
-function fazerLogin() {
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
-  const mensagem = document.getElementById("mensagem");
-
-  if (email === "" || senha === "") {
-    mensagem.textContent = "Preencha todos os campos.";
-   mensagem.style.color = "#ff4d4d";
-    return;
-  }
-
-  const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
-
-  if (!usuarioSalvo) {
-    mensagem.textContent = "Nenhum usuário cadastrado.";
-    mensagem.style.color = "#ff4d4d";
-    return;
-  }
-
-  if (email !== usuarioSalvo.email || senha !== usuarioSalvo.senha) {
-
-  tentativas++;
-
-  if (tentativas >= 5) {
-  mensagem.textContent = "Muitas tentativas. Login bloqueado por 30 segundos.";
-  mensagem.style.color = "#ff4d4d";
-
-  const botao = document.querySelector("button");
-  botao.disabled = true;
-  botao.textContent = "Bloqueado";
-
-  
-  let tempoRestante = 30;
-
-const intervalo = setInterval(() => {
-  mensagem.textContent =
-    "Muitas tentativas. Tente novamente em " +
-    tempoRestante + "s";
-
-  tempoRestante--;
-
-  if (tempoRestante < 0) {
-    clearInterval(intervalo);
-
-    tentativas = 0;
-
-    botao.disabled = false;
-    botao.textContent = "Entrar";
-
-    mensagem.textContent = "Você pode tentar novamente.";
-    mensagem.style.color = "#22c55e";
-  }
-
-}, 1000);
-}
-
-  mensagem.textContent =
-    "E-mail ou senha incorretos. Tentativas: " + tentativas;
-
-  mensagem.style.color = "#ff4d4d";
- localStorage.setItem("logado", "true");
-  const agora = new Date();
-const dataHora = agora.toLocaleString("pt-BR");
-
-localStorage.setItem("ultimoLogin", dataHora);
-
-let historico = JSON.parse(localStorage.getItem("historicoAcessos")) || [];
-historico.push(dataHora);
-
-localStorage.setItem("historicoAcessos", JSON.stringify(historico));
-
-window.location.href = "dashboard.html";
-  return;
-}
-
- 
-  
-}
-
-function cadastrar() {
-  const nome = document.getElementById("nome").value;
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
-  const confirmar = document.getElementById("confirmar").value;
-  const mensagem = document.getElementById("mensagem");
-
-  if (!nome || !email || !senha || !confirmar) {
-    mensagem.textContent = "Preencha todos os campos.";
-    mensagem.style.color = "#ff4d4d";
-    return;
-  }
-
-  if (!senhaForte(senha)) {
-    mensagem.textContent = "A senha precisa ter 8 caracteres, letra maiúscula, número e símbolo.";
-     mensagem.style.color = "#ff4d4d";
-    return;
-  }
-
-  if (senha !== confirmar) {
-    mensagem.textContent = "As senhas não coincidem.";
-     mensagem.style.color = "#ff4d4d";
-    return;
-  }
-
-  const usuario = {
-    nome: nome,
-    email: email,
-    senha: senha
-  };
-
-  localStorage.setItem("usuario", JSON.stringify(usuario));
-
-  mensagem.textContent = "Cadastro realizado com sucesso!";
-mensagem.style.color = "#22c55e";
-}
-
-function senhaForte(senha) {
-  const temMaiuscula = /[A-Z]/.test(senha);
-  const temNumero = /[0-9]/.test(senha);
-  const temEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(senha);
-
-  return senha.length >= 8 && temMaiuscula && temNumero && temEspecial;
-}
-
-function carregarUsuario() {
-  const logado = localStorage.getItem("logado");
-
-if (logado !== "true") {
-  window.location.href = "index.html";
-}
-  const listaHistorico = document.getElementById("historicoAcessos");
-const historico = JSON.parse(localStorage.getItem("historicoAcessos")) || [];
-
-if (listaHistorico) {
-  listaHistorico.innerHTML = "";
-
-  historico.forEach(function(acesso) {
-    const item = document.createElement("li");
-    item.textContent = acesso;
-    listaHistorico.appendChild(item);
-  });
-}
-}
-  const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
-  const usuario = document.getElementById("usuario");
-  const ultimoLogin = localStorage.getItem("ultimoLogin");
-  const textoUltimoLogin = document.getElementById("ultimoLogin");
-
-  if (usuarioSalvo && usuario) {
-    usuario.textContent = "Bem-vindo, " + usuarioSalvo.nome;
-    usuario.style.color = "white";
-  }
-
-  if (ultimoLogin && textoUltimoLogin) {
-    textoUltimoLogin.textContent = "Último acesso: " + ultimoLogin;
-    textoUltimoLogin.style.color = "white";
-    textoUltimoLogin.style.fontSize = "13px";
-  }
-
-
-
-function logout() {
-  localStorage.removeItem("logado");
-  window.location.href = "index.html";
-}
-function mostrarSenha(id, icone) {
-  const campo = document.getElementById(id);
-
-  if (campo.type === "password") {
-    campo.type = "text";
-    icone.classList.remove("fa-eye");
-    icone.classList.add("fa-eye-slash");
-  } else {
-    campo.type = "password";
-    icone.classList.remove("fa-eye-slash");
-    icone.classList.add("fa-eye");
-  }
-}function carregarAdmin() {
-  const logado = localStorage.getItem("logado");
-
-if (logado !== "true") {
-  window.location.href = "index.html";
-}
-  const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
-  const ultimoLogin = localStorage.getItem("ultimoLogin");
-  const historico = JSON.parse(localStorage.getItem("historicoAcessos")) || [];
-
-  const nome = document.getElementById("adminNome");
-  const email = document.getElementById("adminEmail");
-  const login = document.getElementById("adminUltimoLogin");
-  const lista = document.getElementById("adminHistorico");
-
-  if (usuarioSalvo && nome && email) {
-    nome.textContent = "Nome: " + usuarioSalvo.nome;
-    email.textContent = "E-mail: " + usuarioSalvo.email;
-  }
-
-  if (ultimoLogin && login) {
-    login.textContent = "Último acesso: " + ultimoLogin;
-  }
-
-  if (lista) {
-    lista.innerHTML = "";
-
-    historico.forEach(function(acesso) {
-      const item = document.createElement("li");
-      item.textContent = acesso;
-      lista.appendChild(item);
+const formCadastro = document.getElementById("formCadastro");
+if (formCadastro) {
+    formCadastro.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const nome = document.getElementById("nome").value;
+        const email = document.getElementById("email").value;
+        const senha = document.getElementById("senha").value;
+        const usuario = {
+            nome,
+            email,
+            senha
+        };
+        try {
+            const resposta = await fetch(
+                "http://127.0.0.1:3000/cadastro",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(usuario)
+                }
+            );
+            const dados = await resposta.json();
+            alert(dados.mensagem);
+            window.location.href = "index.html";
+        } catch (erro) {
+            console.log(erro);
+            alert("Erro ao cadastrar usuário");
+        }
     });
-  }
 }
-
-document.addEventListener("DOMContentLoaded", carregarAdmin);
-document.addEventListener("DOMContentLoaded", carregarUsuario);
+const formLogin = document.getElementById("formLogin");
+if (formLogin) {
+    formLogin.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const senha = document.getElementById("senha").value;
+        try {
+            const resposta = await fetch(
+                "http://127.0.0.1:3000/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email,
+                        senha
+                    })
+                }
+            );
+            const dados = await resposta.json();
+            if (resposta.ok) {
+                localStorage.setItem(
+                    "usuarioLogado",
+                    JSON.stringify(dados.usuario)
+                );
+                alert(dados.mensagem);
+                window.location.href = "dashboard.html";
+            } else {
+                alert(dados.mensagem);
+            }
+        } catch (erro) {
+            console.log(erro);
+            alert("Erro ao fazer login");
+        }
+    });
+}

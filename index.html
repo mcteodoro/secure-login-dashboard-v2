@@ -1,33 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Login Seguro</title>
-   <link rel="stylesheet" href="style.css" >
+<html lang="pt-br">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Seguro</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="container">
-    <h1><i class="fa-solid fa-shield-halved"></i> Login Seguro</h1>
-    <input type="email" id="email" placeholder="Digite seu e-mail">
-   <div class="senha-box">
-  <input type="password" id="senha" placeholder="Digite sua senha">
-  <i class="fa-solid fa-eye" onclick="mostrarSenha('senha', this)"></i>
-</div>
+<form id="formLogin">
 
-    <button onclick="fazerLogin()">
-  <i class="fa-solid fa-right-to-bracket"></i>
-  Entrar
-</button>
+    <h1>Login</h1>
 
-    <p id="mensagem"></p>
+    <input type="email" id="email" placeholder="E-mail">
+
+    <input type="password" id="senha" placeholder="Senha">
+
+    <button type="submit">
+        Entrar
+    </button>
+
     <a href="cadastro.html">Criar conta</a>
-  </div>
-  <script src="script.js"></script>
-  
+
+</form>
+
+<script src="script.js"></script>
+
 </body>
 </html>

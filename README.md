@@ -1,45 +1,56 @@
-# 🔐 Painel de Login Seguro
+# 🔐 Secure Login Dashboard
 
-Sistema de autenticação desenvolvido com HTML, CSS e JavaScript.
+Sistema completo de autenticação com cadastro, login e dashboard desenvolvido com HTML, CSS, JavaScript e Node.js.
+
+---
 
 ## 🚀 Funcionalidades
 
-- Login de usuário
-- Cadastro de conta
-- Validação de senha forte
-- Dashboard seguro
-- Armazenamento com LocalStorage
-- Logout do sistema
+- Cadastro de usuários
+- Login de usuários
+- Dashboard protegida
+- Logout
+- Integração Frontend + Backend
+- API REST
+- Armazenamento temporário de usuários
+- Interface moderna com Glassmorphism
+
+---
 
 ## 🛠 Tecnologias utilizadas
 
+### Frontend
 - HTML5
 - CSS3
 - JavaScript
-- GitHub Pages
 
-## 🌐 Projeto online
+### Backend
+- Node.js
+- Express
+- CORS
 
-https://mcteodoro.github.io/secure-login-dashboard
+---
 
-## 📁 Estrutura do projeto
+## 📷 Preview
+
+Tela de Login moderna com efeito glassmorphism e dashboard personalizada.
+
+---
+
+## 📂 Estrutura do Projeto
 
 ```bash
-index.html
-cadastro.html
-dashboard.html
-style.css
-script.js
----
-
-## 3. Salva
-
----
-
-## 4. Faz commit novamente
-No VS Code:
-- Source Control
-- mensagem:
-
-```txt id="jiu5yw"
-Adicionando README profissional
+secure-login-dashboard/
+│
+├── backend/
+│   ├── server.js
+│   ├── package.json
+│   └── node_modules
+│
+├── index.html
+├── cadastro.html
+├── dashboard.html
+├── style.css
+├── script.js
+├── README.md
+└── .gitignore

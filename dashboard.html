@@ -1,33 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel</title>
-<link rel="stylesheet" href="style.css">
+<html lang="pt-br">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="container">
-    <h1><i class="fa-solid fa-lock"></i> Painel Seguro</h1>
-    
-   <p id="usuario"></p>
-   <p id="ultimoLogin"></p>
-   
-   <h3>Histórico de acessos</h3>
-<ul id="historicoAcessos"></ul>
+    <div class="dashboard">
 
-<button onclick="logout()">
-  <i class="fa-solid fa-arrow-right-from-bracket"></i>
-  Sair
-</button>
+        <div class="avatar">👤</div>
 
-  </div>
+        <h1>Bem-vinda 👋</h1>
 
-  <script src="script.js"></script>
+        <p id="nomeUsuario"></p>
+
+        <div class="card-info">
+            <strong>Status:</strong>
+            <span>Usuário logado com sucesso</span>
+        </div>
+
+        <button onclick="logout()">
+            Sair
+        </button>
+
+    </div>
+
+    <script>
+
+        const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+        if (!usuario) {
+            window.location.href = "index.html";
+        }
+
+        document.getElementById("nomeUsuario").innerHTML = `
+            <strong>Nome:</strong> ${usuario.nome} <br>
+            <strong>E-mail:</strong> ${usuario.email}
+        `;
+
+        function logout() {
+            localStorage.removeItem("usuarioLogado");
+            window.location.href = "index.html";
+        }
+
+    </script>
 
 </body>
+
 </html>
