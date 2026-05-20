@@ -1,59 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<script>
-const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-if (!usuario) {
-  window.location.href = "index.html";
-}
-</script>
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body onload="carregarDashboard()">
 
-    <div class="dashboard">
+  <div class="dashboard">
 
-        <div class="avatar">👤</div>
-
-        <h1>Bem-vinda 👋</h1>
-
-        <p id="nomeUsuario"></p>
-
-        <div class="card-info">
-            <strong>Status:</strong>
-            <span>Usuário logado com sucesso</span>
-        </div>
-
-        <button onclick="logout()">
-            Sair
-        </button>
-
+    <div class="avatar">
+      👤
     </div>
 
-    <script>
+    <h1>Dashboard</h1>
 
-        const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+    <p>
+      Bem-vinda,
+      <span id="nomeUsuario"></span>
+    </p>
 
-        if (!usuario) {
-            window.location.href = "index.html";
-        }
+    <p id="emailUsuario"></p>
 
-        document.getElementById("nomeUsuario").innerHTML = `
-            <strong>Nome:</strong> ${usuario.nome} <br>
-            <strong>E-mail:</strong> ${usuario.email}
-        `;
+    <button onclick="sair()">
+      Sair
+    </button>
 
-        function logout() {
-            localStorage.removeItem("usuarioLogado");
-            window.location.href = "index.html";
-        }
+  </div>
 
-    </script>
+  <script src="script.js"></script>
 
 </body>
 
