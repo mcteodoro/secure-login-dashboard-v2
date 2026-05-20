@@ -35,6 +35,7 @@ async function cadastrar() {
 }
 
 async function login() {
+    localStorage.setItem("usuario", JSON.stringify(data.usuario));
   const email = document.getElementById("email").value;
   const senha = document.getElementById("senha").value;
 
@@ -58,7 +59,7 @@ async function login() {
         "usuario",
         JSON.stringify(dados.usuario)
       );
-
+window.location.href = "dashboard.html";
       window.location.href = "dashboard.html";
 
     } else {
