@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <form id="formCadastro">
+<form id="formCadastro" onsubmit="return false;">
 
     <h1>Criar Conta</h1>
 
@@ -20,10 +20,7 @@
 
     <input type="password" id="senha" placeholder="Senha">
 
-    <button type="submit">
-      Cadastrar
-    </button>
-
+  <button type="button" onclick="cadastrar()">Cadastrar</button>>
   </form>
 
   <script src="script.js"></script>
