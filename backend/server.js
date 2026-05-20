@@ -33,28 +33,38 @@ app.get("/usuarios", async (req, res) => {
 });
 
 app.post("/cadastro", async (req, res) => {
-  const { nome, email, senha } = req.body;
+  try {
+    const { nome, email, senha } = req.body;
 
-  const usuarioExistente = await Usuario.findOne({ email });
+    const usuarioExistente = await Usuario.findOne({ email });
 
-  if (usuarioExistente) {
-    return res.status(400).json({
-      mensagem: "E-mail já cadastrado"
+    if (usuarioExistente) {
+      return res.status(400).json({
+        mensagem: "Usuário já existe"
+      });
+    }
+
+    const senhaCriptografada = await bcrypt.hash(senha, 10);
+
+    const novoUsuario = new Usuario({
+      nome,
+      email,
+      senha: senhaCriptografada
+    });
+
+    await novoUsuario.save();
+
+    res.status(201).json({
+      mensagem: "Usuário cadastrado com sucesso"
+    });
+
+  } catch (erro) {
+    console.log(erro);
+
+    res.status(500).json({
+      mensagem: "Erro ao cadastrar usuário"
     });
   }
-
-  const senhaCriptografada = await bcrypt.hash(senha, 10);
-
-  const usuario = await Usuario.create({
-    nome,
-    email,
-    senha: senhaCriptografada
-  });
-
-  res.json({
-    mensagem: "Usuário cadastrado com sucesso",
-    usuario
-  });
 });
 
 app.post("/login", async (req, res) => {
