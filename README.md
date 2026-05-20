@@ -1,56 +1,30 @@
-# 🔐 Secure Login Dashboard
+# Secure Login Dashboard
 
-Sistema completo de autenticação com cadastro, login e dashboard desenvolvido com HTML, CSS, JavaScript e Node.js.
+Sistema de login seguro com autenticação de usuários.
 
----
+## Tecnologias utilizadas
 
-## 🚀 Funcionalidades
-
-- Cadastro de usuários
-- Login de usuários
-- Dashboard protegida
-- Logout
-- Integração Frontend + Backend
-- API REST
-- Armazenamento temporário de usuários
-- Interface moderna com Glassmorphism
-
----
-
-## 🛠 Tecnologias utilizadas
-
-### Frontend
-- HTML5
-- CSS3
+- HTML
+- CSS
 - JavaScript
-
-### Backend
 - Node.js
 - Express
-- CORS
+- MongoDB Atlas
+- Render
+- Vercel
 
----
+## Funcionalidades
 
-## 📷 Preview
+- Cadastro de usuário
+- Login
+- Dashboard protegido
+- Integração com banco de dados
+- Backend online
 
-Tela de Login moderna com efeito glassmorphism e dashboard personalizada.
+## Projeto online
 
----
+Frontend:
+https://secure-login-dashboard-v2.vercel.app
 
-## 📂 Estrutura do Projeto
-
-```bash
-secure-login-dashboard/
-│
-├── backend/
-│   ├── server.js
-│   ├── package.json
-│   └── node_modules
-│
-├── index.html
-├── cadastro.html
-├── dashboard.html
-├── style.css
-├── script.js
-├── README.md
-└── .gitignore
+Backend:
+https://secure-login-dashboard-v2.onrender.com
