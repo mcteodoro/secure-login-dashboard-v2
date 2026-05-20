@@ -234,3 +234,51 @@ button:hover {
 .card-info span {
     color: #dbeafe;
 }
+@media (max-width: 768px) {
+
+  .container,
+  .login-container,
+  .dashboard-container {
+    width: 90%;
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  input,
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .dashboard-card {
+    width: 95%;
+  }
+}
+@media (max-width: 768px) {
+
+  .container,
+  .login-container,
+  .dashboard-container {
+    width: 90%;
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  input,
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .dashboard-card {
+    width: 95%;
+  }
+}
