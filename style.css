@@ -1,4 +1,4 @@
- * {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -7,6 +7,7 @@
 
 body {
   height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,10 +22,13 @@ body {
   overflow: hidden;
 }
 
-form,
-.dashboard-card {
+/* LOGIN E CADASTRO */
+
+form {
   width: 420px;
+
   padding: 45px 35px;
+
   border-radius: 28px;
 
   background: rgba(255, 255, 255, 0.12);
@@ -42,11 +46,13 @@ form,
 h1 {
   font-size: 42px;
   margin-bottom: 30px;
+
   color: white;
 }
 
 input {
   width: 100%;
+
   padding: 16px;
   margin-bottom: 20px;
 
@@ -64,6 +70,7 @@ input {
 
 button {
   width: 100%;
+
   padding: 16px;
   margin-top: 10px;
 
@@ -95,6 +102,7 @@ button:hover {
 
 a {
   display: block;
+
   margin-top: 18px;
 
   color: white;
@@ -106,6 +114,27 @@ a {
 
 a:hover {
   opacity: 1;
+}
+
+/* DASHBOARD */
+
+.dashboard-card {
+  width: 420px;
+
+  padding: 45px 35px;
+
+  border-radius: 28px;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.35);
+
+  text-align: center;
+
+  color: white;
 }
 
 .avatar {
@@ -125,17 +154,19 @@ a:hover {
   font-size: 40px;
 }
 
-.dashboard h1 {
+.dashboard-card h1 {
   margin-bottom: 20px;
 }
 
-.dashboard p {
+.dashboard-card p {
   font-size: 17px;
+
   margin: 8px 0;
 }
 
 .status {
   margin: 25px 0;
+
   padding: 18px;
 
   border-radius: 18px;
@@ -143,11 +174,14 @@ a:hover {
   background: rgba(255, 255, 255, 0.12);
 }
 
+/* RESPONSIVO */
+
 @media (max-width: 500px) {
 
   form,
-  .dashboard {
+  .dashboard-card {
     width: 92%;
+
     padding: 35px 25px;
   }
 
