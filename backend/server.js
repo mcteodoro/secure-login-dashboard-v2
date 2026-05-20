@@ -1,45 +1,75 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
+require("dotenv").config();
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('MongoDB conectado'))
-.catch(err => console.log(err));
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-let usuarios = [];
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB conectado"))
+  .catch((erro) => console.log("Erro ao conectar MongoDB:", erro));
 
-app.get("/", (req, res) => {
-  res.send("Backend funcionando 🚀");
+const usuarioSchema = new mongoose.Schema({
+  nome: String,
+  email: String,
+  senha: String
 });
 
-app.get("/usuarios", (req, res) => {
+const Usuario = mongoose.model("Usuario", usuarioSchema);
+
+app.get("/", (req, res) => {
+  res.send("Backend online funcionando");
+});
+
+app.get("/usuarios", async (req, res) => {
+  const usuarios = await Usuario.find();
   res.json(usuarios);
 });
 
-app.post("/cadastro", (req, res) => {
-  const usuario = req.body;
+app.post("/cadastro", async (req, res) => {
+  const { nome, email, senha } = req.body;
 
-  usuarios.push(usuario);
+  const usuarioExistente = await Usuario.findOne({ email });
+
+  if (usuarioExistente) {
+    return res.status(400).json({
+      mensagem: "E-mail já cadastrado"
+    });
+  }
+
+  const senhaCriptografada = await bcrypt.hash(senha, 10);
+
+  const usuario = await Usuario.create({
+    nome,
+    email,
+    senha: senhaCriptografada
+  });
 
   res.json({
     mensagem: "Usuário cadastrado com sucesso",
-    usuario: usuario
+    usuario
   });
 });
-app.post("/login", (req, res) => {
+
+app.post("/login", async (req, res) => {
   const { email, senha } = req.body;
 
-  const usuario = usuarios.find(user =>
-    user.email === email && user.senha === senha
-  );
+  const usuario = await Usuario.findOne({ email });
 
   if (!usuario) {
+    return res.status(401).json({
+      mensagem: "E-mail ou senha incorretos"
+    });
+  }
+
+  const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+
+  if (!senhaCorreta) {
     return res.status(401).json({
       mensagem: "E-mail ou senha incorretos"
     });
@@ -50,6 +80,7 @@ app.post("/login", (req, res) => {
     usuario
   });
 });
+
 app.listen(3000, () => {
   console.log("Servidor rodando na porta 3000");
 });
