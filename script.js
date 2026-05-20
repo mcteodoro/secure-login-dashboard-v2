@@ -102,3 +102,9 @@ function mostrarSenha(id) {
     input.type = "password";
   }
 }
+function sair() {
+
+  localStorage.removeItem("usuario");
+
+  window.location.href = "index.html";
+}
