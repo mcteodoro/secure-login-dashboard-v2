@@ -60,7 +60,7 @@ async function login() {
         JSON.stringify(dados.usuario)
       );
 window.location.href = "dashboard.html";
-      window.location.href = "dashboard.html";
+      
 
     } else {
       alert(dados.mensagem);
