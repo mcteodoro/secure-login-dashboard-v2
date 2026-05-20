@@ -35,7 +35,7 @@ async function cadastrar() {
 }
 
 async function login() {
-    localStorage.setItem("usuario", JSON.stringify(data.usuario));
+ 
   const email = document.getElementById("email").value;
   const senha = document.getElementById("senha").value;
 
