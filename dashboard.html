@@ -5,34 +5,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
-
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body onload="carregarDashboard()">
+<body>
 
-  <div class="dashboard">
+  <div class="dashboard-card">
+    <div class="avatar">👤</div>
 
-    <div class="avatar">
-      👤
+    <h1>Bem-vinda 👋</h1>
+
+    <p><strong>Nome:</strong> <span id="nomeUsuario"></span></p>
+    <p><strong>E-mail:</strong> <span id="emailUsuario"></span></p>
+
+    <div class="status">
+      <strong>Status:</strong>
+      <p>Usuário logado com sucesso</p>
     </div>
 
-    <h1>Dashboard</h1>
-
-    <p>
-      Bem-vinda,
-      <span id="nomeUsuario"></span>
-    </p>
-
-    <p id="emailUsuario"></p>
-
-    <button onclick="sair()">
-      Sair
-    </button>
-
+    <button onclick="sair()">Sair</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    if (!usuario) {
+      window.location.replace("index.html");
+    } else {
+      document.getElementById("nomeUsuario").innerText = usuario.nome;
+      document.getElementById("emailUsuario").innerText = usuario.email;
+    }
+
+    function sair() {
+      localStorage.removeItem("usuario");
+      window.location.replace("index.html");
+    }
+  </script>
 
 </body>
 
