@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -11,10 +10,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URL)
+// CONEXÃO COM MONGODB
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB conectado"))
   .catch((erro) => console.log("Erro ao conectar MongoDB:", erro));
 
+// SCHEMA
 const usuarioSchema = new mongoose.Schema({
   nome: String,
   email: String,
@@ -23,19 +24,17 @@ const usuarioSchema = new mongoose.Schema({
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
+// TESTE
 app.get("/", (req, res) => {
   res.send("Backend online funcionando");
 });
 
-app.get("/usuarios", async (req, res) => {
-  const usuarios = await Usuario.find();
-  res.json(usuarios);
-});
-
+// CADASTRO
 app.post("/cadastro", async (req, res) => {
   try {
     const { nome, email, senha } = req.body;
 
+    // VERIFICA SE USUÁRIO EXISTE
     const usuarioExistente = await Usuario.findOne({ email });
 
     if (usuarioExistente) {
@@ -44,8 +43,10 @@ app.post("/cadastro", async (req, res) => {
       });
     }
 
+    // CRIPTOGRAFAR SENHA
     const senhaCriptografada = await bcrypt.hash(senha, 10);
 
+    // CRIAR USUÁRIO
     const novoUsuario = new Usuario({
       nome,
       email,
@@ -54,7 +55,7 @@ app.post("/cadastro", async (req, res) => {
 
     await novoUsuario.save();
 
-    res.status(201).json({
+    res.json({
       mensagem: "Usuário cadastrado com sucesso"
     });
 
@@ -67,31 +68,50 @@ app.post("/cadastro", async (req, res) => {
   }
 });
 
+// LOGIN
 app.post("/login", async (req, res) => {
-  const { email, senha } = req.body;
+  try {
+    const { email, senha } = req.body;
 
-  const usuario = await Usuario.findOne({ email });
+    // BUSCAR USUÁRIO
+    const usuario = await Usuario.findOne({ email });
 
-  if (!usuario) {
-    return res.status(401).json({
-      mensagem: "E-mail ou senha incorretos"
+    if (!usuario) {
+      return res.status(401).json({
+        mensagem: "E-mail ou senha incorretos"
+      });
+    }
+
+    // COMPARAR SENHA
+    const senhaCorreta = await bcrypt.compare(
+      senha,
+      usuario.senha
+    );
+
+    if (!senhaCorreta) {
+      return res.status(401).json({
+        mensagem: "E-mail ou senha incorretos"
+      });
+    }
+
+    res.json({
+      mensagem: "Login realizado com sucesso",
+      usuario: {
+        nome: usuario.nome,
+        email: usuario.email
+      }
+    });
+
+  } catch (erro) {
+    console.log(erro);
+
+    res.status(500).json({
+      mensagem: "Erro ao fazer login"
     });
   }
-
-  const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
-
-  if (!senhaCorreta) {
-    return res.status(401).json({
-      mensagem: "E-mail ou senha incorretos"
-    });
-  }
-
-  res.json({
-    mensagem: "Login realizado com sucesso",
-    usuario
-  });
 });
 
+// PORTA
 app.listen(3000, () => {
   console.log("Servidor rodando na porta 3000");
 });
