@@ -12,7 +12,7 @@ if (formCadastro) {
         };
         try {
             const resposta = await fetch(
-                "http://127.0.0.1:3000/cadastro",
+                "https://secure-login-dashboard-v2.onrender.com/cadastro",
                 {
                     method: "POST",
                     headers: {
@@ -38,7 +38,7 @@ if (formLogin) {
         const senha = document.getElementById("senha").value;
         try {
             const resposta = await fetch(
-                "http://127.0.0.1:3000/login",
+                "https://secure-login-dashboard-v2.onrender.com/login",
                 {
                     method: "POST",
                     headers: {
